@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #fff5f7;
+            background: linear-gradient(135deg, #ffdde1, #fce4ec); /* Valentine page background */
             font-family: Arial, sans-serif;
         }
 
@@ -26,10 +26,10 @@
         }
 
         .card {
-            background: white;
+            background: linear-gradient(145deg, #ffd6e8, #ffb3d9); /* pink gradient card */
             padding: 80px;
             border-radius: 30px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 18px rgba(255, 102, 178, 0.4);
             text-align: center;
             width: 900px;
             height: 650px;
@@ -51,17 +51,22 @@
         }
 
         #yesBtn {
-            background-color: #ff85a2;
+            background-color: #ff4d88; /* bright pink */
             color: white;
             font-size: 20px;
             padding: 14px 30px;
             border-radius: 12px;
             border: none;
             cursor: pointer;
+            transition: transform 0.2s;
         }
 
+            #yesBtn:hover {
+                transform: scale(1.1);
+            }
+
         #noBtn {
-            background-color: #cccccc;
+            background-color: #ffc0cb; /* pastel pink */
             font-size: 20px;
             padding: 14px 30px;
             border-radius: 12px;
@@ -77,9 +82,9 @@
 
         h2 {
             font-size: 32px;
+            color: #ff1a75; /* bright Valentine’s pink */
         }
 
-        /* Heart rain styles */
         /* Heart rain styles */
         .heart-container {
             position: absolute;
@@ -93,26 +98,24 @@
 
         .heart {
             position: absolute;
-            color: #ff4d6d;
+            color: #ff1a75; /* vibrant hearts */
             font-size: 20px;
             animation-name: fall;
             animation-timing-function: linear;
             animation-fill-mode: forwards;
         }
 
-        /* proper keyframes */
         @keyframes fall {
             0% {
-                transform: translateY(-50px) rotate(0deg);
+                transform: translateY(-50px) translateX(0px) rotate(0deg);
                 opacity: 1;
             }
 
             100% {
-                transform: translateY(700px) rotate(360deg);
+                transform: translateY(700px) translateX(30px) rotate(360deg);
                 opacity: 0;
             }
         }
-
     </style>
 </head>
 <body>
@@ -173,22 +176,6 @@
             noBtn.style.top = y + "px";
         });
 
-        // Yes button click
-        // Function to create a heart
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 90 + "%"; // random horizontal position
-            heart.style.animationDuration = 2 + Math.random() * 2 + "s"; // random speed
-            heart.style.fontSize = 15 + Math.random() * 25 + "px"; // random size
-            heartContainer.appendChild(heart);
-
-            // Remove heart after animation ends
-            heart.addEventListener("animationend", () => heart.remove());
-        }
-
-        // Yes button click
         yesBtn.addEventListener("click", function () {
             document.querySelector(".button-row").style.display = "none";
 
@@ -199,19 +186,29 @@
             const yayText = document.createElement("h2");
             yayText.textContent = "YAY! 🎉💖";
             yayText.style.fontSize = "40px";
-            yayText.style.color = "#ff4d6d";
+            yayText.style.color = "#ff1a75";
             yayText.style.marginBottom = "20px";
             card.insertBefore(yayText, gif);
 
             const heartContainer = document.querySelector(".heart-container");
 
-            // **Repeat hearts every 200ms**
-            const heartInterval = setInterval(createHeart, 200);
+            // Create a heart
+            function createHeart() {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 90 + "%";
+                heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+                heart.style.fontSize = 15 + Math.random() * 25 + "px";
+                heartContainer.appendChild(heart);
 
-            // Stop after 10 seconds
+                heart.addEventListener("animationend", () => heart.remove());
+            }
+
+            // Repeat hearts every 200ms for 10 seconds
+            const heartInterval = setInterval(createHeart, 200);
             setTimeout(() => clearInterval(heartInterval), 10000);
         });
-
     </script>
 
 </body>
